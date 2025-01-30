@@ -1,0 +1,122 @@
+local cards = require("main.cards")
+
+local player = {
+	hp = 15,
+	dice = 0,
+	hand = 0,
+	turn = true,
+	skilldmg = -2,
+	natkdmg = -1,
+	skillbuff = 0,
+	natkbuff = 0,
+	shield = 0,
+}
+
+local opponent = {
+	hp = 15,
+	dice = 0,
+	turn = false,
+}
+
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	math.randomseed(os.time())
+	draw_hand(self, 5)
+	msg.post("/php#hpchange", "sethp", {hp = player.hp})
+	msg.post("/ohp#hpchange", "sethp", {hp = opponent.hp})
+end
+
+function update_player_hp(change)
+	-- Update player HP and notify the display
+	player.hp = player.hp + change
+	msg.post("/php#hpchange", "sethp", {hp = player.hp})
+end
+
+function update_opponent_hp(change)
+	-- Update opponent HP and notify the display
+	opponent.hp = opponent.hp + change
+	msg.post("/ohp#hpchange", "sethp", {hp = opponent.hp})
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("natk") then
+		update_opponent_hp(player.natkdmg)
+	elseif message_id == hash("skill") then
+		update_opponent_hp(player.skilldmg)
+	end
+end
+
+
+local function create_card(self, card_id, position)
+	print("create_card() -> card_id: " .. tostring(card_id) .. ", type: " .. type(card_id))
+	print("Creating card with ID: " .. card_id)
+	
+	local card_data = cards[card_id]
+	
+	if not card_data then
+		print("Error: No card data found for ID " .. tostring(card_id))
+	end
+	
+	print("Card data retrieved: ", card_data)
+	print("Card data found: ", card_data)
+	
+	local properties = { 
+		card_id = card_data.id, 
+		cost = card_data.cost, 
+		graphic = hash(card_data.graphic),
+	}
+	
+	print("create_card() -> properties: card_id=" .. tostring(properties.card_id) .. ", cost=" .. tostring(properties.cost))
+	
+	for k, v in pairs(properties) do
+		print("Property key: " .. tostring(k) .. ", value: " .. tostring(v))
+	end
+	
+	print("Properties passed to factory: ", properties)
+	
+	local card_instance = factory.create("#card_factory", position, nil, properties)
+
+	if card_instance then
+		print("Card created with ID: " .. tostring(card_instance))
+		msg.post(card_instance, "setup_card", { datasent = properties })
+		print("Here is properties " .. tostring(properties))
+		print("Card instance created with graphic: " .. tostring(card_data.graphic))
+	else
+		print("Error: Failed to create card.")
+	end
+end
+
+-- Picks a random card name from the cards table
+local function pick_random_card()
+	local card_id = math.random(1, #cards)
+	print("pick_random_card() -> card_id: " .. tostring(card_id) .. ", type: " .. type(card_id))
+	return card_id
+end
+
+
+-- Draws a specified number of cards into the player's hand
+function draw_hand(self, count)
+	for i = 1, count do
+		local random_card = pick_random_card() -- Pick a random card
+		local position = vmath.vector3(150 * i, 100, 0) -- Adjust position dynamically
+		create_card(self, random_card, position) -- Create the card
+		print("create")
+	end
+end
+
+
+--test
+function on_input(self, action_id, action)
+	if action_id == hash("increase_player_hp") and action.pressed then
+		print("hp updated")
+		update_player_hp(10) -- Increase player HP by 10
+	elseif action_id == hash("decrease_player_hp") and action.pressed then
+		update_player_hp(-10) -- Decrease player HP by 10
+	elseif action_id == hash("increase_opponent_hp") and action.pressed then
+		update_opponent_hp(10) -- Increase opponent HP by 10
+	elseif action_id == hash("decrease_opponent_hp") and action.pressed then
+		update_opponent_hp(-10) -- Decrease opponent HP by 10
+	end
+end
+--test

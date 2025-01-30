@@ -1,0 +1,20 @@
+key_trigger {
+  input: KEY_W
+  action: "increase_player_hp"
+}
+key_trigger {
+  input: KEY_A
+  action: "decrease_opponent_hp"
+}
+key_trigger {
+  input: KEY_S
+  action: "decrease_player_hp"
+}
+key_trigger {
+  input: KEY_D
+  action: "increase_opponent_hp"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_LEFT
+  action: "touch"
+}

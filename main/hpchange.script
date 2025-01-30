@@ -1,0 +1,14 @@
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("sethp") then
+		hp = message.hp
+		update_hp_display(hp)
+	end
+end
+
+function update_hp_display(hp)
+	local hp_text = hp
+	label.set_text("#label", hp_text)
+	-- Update the text of the label
+end

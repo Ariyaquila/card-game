@@ -1,0 +1,41 @@
+go.property("card_id", 1)
+go.property("cost", 1)
+
+
+local cards = require("main.cards")
+
+function init(self)
+	print("Card initialized")
+	self.card_graphic = ""
+
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("setup_card") then
+		print("setup_card message received with data:")
+		
+		for k, v in pairs(message.datasent) do
+			print("Key: " .. tostring(k) .. ", Value: " .. tostring(v))
+		end
+		
+		local card_data = message.datasent
+		self.card_id = card_data.card_id
+		self.cost = card_data.cost
+		self.card_graphic = card_data.graphic
+		
+		print("Assigned card data: card_id=" .. tostring(self.card_id) .. ", cost=" .. tostring(self.cost))
+
+		local card_info = cards[self.card_id]
+		
+		print("card info saved" .. tostring(card_info))
+		
+		if self.card_graphic then
+			print("Attempting to play animation: " .. tostring(self.card_graphic))
+			print("Sprite component initialized: #sprite")
+			sprite.play_flipbook("#sprite", self.card_graphic)
+			print("Sprite initialized with graphic: " .. tostring(self.card_graphic))
+		else
+			print("Error: No graphic found for this card.")
+		end
+	end
+end

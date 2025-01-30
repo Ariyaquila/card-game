@@ -1,0 +1,18 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.released == true then
+		local natkdmg = gui.get_node("natk")
+		if gui.pick_node(natkdmg,action.x,action.y) then
+			msg.post("/controller#controller", "natk")
+		end
+	end
+	if(action_id == hash("touch") and action.released == true) then
+		local skilldmg = gui.get_node("skill")
+		if(gui.pick_node(skilldmg,action.x,action.y)) then
+			msg.post("/controller#controller", "skill")
+		end
+	end    
+end

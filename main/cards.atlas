@@ -1,0 +1,65 @@
+images {
+  image: "/graphics/Card Deck/Event Cards/ecomet.jpg"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/econtract.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/edevil.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/eeclipse.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/eflight.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/efruit.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/ejudgement.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/eknight.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/emirror.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/enymph.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/eorder.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/epoison.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/eprophecy.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/esunrise.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+images {
+  image: "/graphics/Card Deck/Event Cards/ewitch.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_8
+}
+margin: 0
+extrude_borders: 2
+inner_padding: 0
+max_page_width: 0
+max_page_height: 0
